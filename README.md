@@ -214,6 +214,32 @@ The final clustered file includes:
 - `reports/figures/hierarchical_dendrogram.png`
 - `data/processed/clustered_restaurants.csv`
 
+## Cluster Interpretation and Labeling
+
+### Business Archetypes Identified
+
+Using cluster-level KPI comparisons against overall dataset averages, each cluster was assigned a business-friendly archetype and description.
+
+1. **Cluster 0 - High-Growth / High-Risk** (371 restaurants, 21.9%)
+   - **Interpretation**: High scale momentum, but weak cost discipline and negative profit quality indicate fragile growth.
+   - **Business significance**: This segment can grow, but requires immediate margin stabilization (cost controls, pricing, and channel profitability governance).
+
+2. **Cluster 1 - Scalable Profit Leaders** (664 restaurants, 39.2%)
+   - **Interpretation**: High scale with strong profitability and healthier cost structure.
+   - **Business significance**: This is the expansion-ready segment for targeted investment, premium positioning, and replication playbooks.
+
+3. **Cluster 2 - Aggregator-Dependent Low Margin** (661 restaurants, 39.0%)
+   - **Interpretation**: Strong dependence on aggregator channels with weaker relative return quality.
+   - **Business significance**: Priority should be channel rebalancing, commission optimization, and direct/self-delivery conversion to protect margins.
+
+### Interpretation Outputs
+- Cluster statistics table: `reports/cluster_summary.csv`
+- Narrative profiles: `reports/cluster_profiles.md`
+- KPI comparison visual: `reports/figures/cluster_kpi_comparison.png`
+- Enriched clustered dataset with archetype metadata:
+  - `data/processed/clustered_restaurants.csv`
+  - includes `cluster_label_name` and `cluster_description`
+
 ## Project Structure
 ```
 sky/
@@ -235,6 +261,7 @@ sky/
 │   ├── preprocessing.py
 │   ├── feature_engineering.py
 │   ├── dimensionality_reduction.py
+│   ├── cluster_interpretation.py
 │   ├── clustering.py
 │   ├── scoring.py
 │   └── utils.py
@@ -243,20 +270,23 @@ sky/
 ├── reports/
 │   ├── analysis.md
 │   ├── pca_summary.md
+│   ├── cluster_summary.csv
+│   ├── cluster_profiles.md
 │   └── figures/
 │       ├── pca_scree_plot.png
 │       ├── pca_2d_scatter.png
 │       ├── kmeans_elbow_plot.png
 │       ├── kmeans_silhouette_plot.png
 │       ├── hierarchical_dendrogram.png
+│       ├── cluster_kpi_comparison.png
 │       └── umap_2d_embedding.png
 ├── requirements.txt
 └── README.md
 ```
 
 ## Next Steps
-- Cluster profiling and business archetype labeling by KPI patterns
 - Growth Potential Index (GPI) design and weighting strategy
+- Strategy recommendation engine mapped to each archetype
 - Scoring model in `src/scoring.py`
 - Streamlit app development in `app/streamlit_app.py`
 
@@ -264,3 +294,4 @@ sky/
 - **2026-04-01**: Initial setup, data preprocessing pipeline, feature engineering with KPIs and helper metrics completed. Repository pushed to GitHub.
 - **2026-04-01**: Added dimensionality reduction pipeline with PCA outputs, optional UMAP embedding, explained-variance reporting, factor interpretation guidance, and visualization artifacts.
 - **2026-04-01**: Extended clustering pipeline with K-Means sweep (k=2..8), hierarchical clustering, optional DBSCAN robustness check, clustering diagnostics plots, and final `clustered_restaurants.csv` export with selected labels.
+- **2026-04-01**: Added business-level cluster interpretation layer with archetype labeling, cluster-vs-overall KPI summaries, markdown profile narratives, KPI comparison visual, and enriched clustered output including `cluster_label_name` and `cluster_description`.

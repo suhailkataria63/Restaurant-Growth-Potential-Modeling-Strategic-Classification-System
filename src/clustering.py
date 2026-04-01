@@ -27,6 +27,11 @@ try:
 except ImportError:  # pragma: no cover
     from dimensionality_reduction import perform_dimensionality_reduction
 
+try:
+    from .cluster_interpretation import interpret_clusters
+except ImportError:  # pragma: no cover
+    from cluster_interpretation import interpret_clusters
+
 RANDOM_STATE = 42
 
 
@@ -152,6 +157,9 @@ def run_clustering_analysis(
     feature_matrix_path: str = "data/processed/feature_matrix.csv",
     pca_features_path: str = "data/processed/pca_features.csv",
     clustered_output_path: str = "data/processed/clustered_restaurants.csv",
+    cluster_summary_path: str = "reports/cluster_summary.csv",
+    cluster_profiles_path: str = "reports/cluster_profiles.md",
+    cluster_figure_path: str = "reports/figures/cluster_kpi_comparison.png",
     figures_dir: str = "reports/figures",
     run_dbscan: bool = True,
 ) -> Dict[str, object]:
@@ -201,6 +209,17 @@ def run_clustering_analysis(
         selected_labels = kmeans_labels
         selected_silhouette = kmeans_best_silhouette
 
+    profile_df = featured_df.copy()
+    profile_df["selected_cluster"] = selected_labels.astype(int)
+    profile_df["selected_method"] = selected_method
+    label_df = interpret_clusters(
+        df=profile_df,
+        cluster_col="selected_cluster",
+        cluster_summary_path=cluster_summary_path,
+        cluster_profiles_path=cluster_profiles_path,
+        cluster_figure_path=cluster_figure_path,
+    )
+
     identifier_cols = ["restaurantid", "restaurantname", "cuisinetype", "segment", "subregion"]
     strategic_kpis = [
         "scale_score",
@@ -223,6 +242,7 @@ def run_clustering_analysis(
         clustered_df["dbscan_cluster"] = dbscan_labels.astype(int)
     clustered_df["selected_method"] = selected_method
     clustered_df["selected_cluster"] = selected_labels.astype(int)
+    clustered_df = clustered_df.merge(label_df, on="selected_cluster", how="left")
 
     output_path = Path(clustered_output_path)
     _ensure_parent_dirs([output_path])
@@ -237,6 +257,9 @@ def run_clustering_analysis(
         "hierarchical_silhouette": float(hierarchical_silhouette),
         "dendrogram_note": dendrogram_note,
         "dbscan_summary": dbscan_summary,
+        "cluster_summary_path": cluster_summary_path,
+        "cluster_profiles_path": cluster_profiles_path,
+        "cluster_kpi_comparison_figure": cluster_figure_path,
         "clustered_output_path": str(output_path),
     }
 
