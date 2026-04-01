@@ -1,0 +1,6 @@
+strategy_recommendation,restaurant_count,avg_gpi_score,avg_cost_discipline_score,avg_aggregator_dependence,avg_expansion_headroom,avg_revenue_quality_score,share_pct,high_potential_count,moderate_potential_count,caution_zone_count,dominant_cluster_archetype
+Scale Aggressively,175,77.017,0.401,0.644,0.007,1.669,10.32,175,0,0,Scalable Profit Leaders
+Expand Carefully,69,60.478,0.374,0.698,0.013,0.537,4.07,8,61,0,Scalable Profit Leaders
+Rebalance Channels,353,49.118,0.391,0.783,0.011,0.248,20.81,2,275,76,Aggregator-Dependent Low Margin
+Optimize,575,54.358,0.336,0.743,0.009,0.228,33.9,0,449,126,Scalable Profit Leaders
+Stabilize Operations,524,31.737,0.182,0.784,0.012,-1.045,30.9,0,0,524,High-Growth / High-Risk

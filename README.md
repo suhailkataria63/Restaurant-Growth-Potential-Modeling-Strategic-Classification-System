@@ -288,6 +288,41 @@ Implemented a weighted composite Growth Potential Index in `src/scoring.py` and 
   - `gpi_rank`
   - normalized GPI component columns (`gpi_*_norm`)
 
+## Strategy Recommendation Engine
+
+### Recommendation Logic
+
+Implemented a rule-based recommendation engine in `src/recommendation_engine.py` that assigns one primary strategic action per restaurant using:
+- cluster archetype
+- GPI score and GPI band
+- channel mix and aggregator dependence
+- cost discipline
+- expansion headroom
+- revenue quality
+
+### Primary Action Labels
+- `Scale Aggressively`
+- `Expand Carefully`
+- `Rebalance Channels`
+- `Optimize`
+- `Stabilize Operations`
+
+Each restaurant receives:
+- `strategy_recommendation`
+- `recommendation_reason` (short explanation for why the action was assigned)
+
+### Business Interpretation of Actions
+- **Scale Aggressively**: used for high-potential, strong-economics operators where expansion can be accelerated.
+- **Expand Carefully**: used when growth opportunity exists but risk signals require phased execution.
+- **Rebalance Channels**: used when aggregator-heavy mix and channel risk call for direct/self-delivery strengthening.
+- **Optimize**: used for moderate performers where operational and commercial tuning should come before scale.
+- **Stabilize Operations**: used for low-potential, stressed economics segments that need margin and process recovery.
+
+### Recommendation Outputs
+- `reports/recommendation_summary.csv`
+- `reports/strategy_playbook.md`
+- `data/processed/clustered_restaurants.csv` (enriched with recommendation fields)
+
 ## Project Structure
 ```
 sky/
@@ -312,6 +347,7 @@ sky/
 │   ├── cluster_interpretation.py
 │   ├── clustering.py
 │   ├── scoring.py
+│   ├── recommendation_engine.py
 │   └── utils.py
 ├── app/
 │   └── streamlit_app.py
@@ -322,6 +358,8 @@ sky/
 │   ├── cluster_profiles.md
 │   ├── gpi_methodology.md
 │   ├── gpi_summary.csv
+│   ├── recommendation_summary.csv
+│   ├── strategy_playbook.md
 │   └── figures/
 │       ├── pca_scree_plot.png
 │       ├── pca_2d_scatter.png
@@ -335,9 +373,9 @@ sky/
 ```
 
 ## Next Steps
-- Growth Potential Index (GPI) design and weighting strategy
-- Strategy recommendation engine mapped to each archetype
-- Scoring model in `src/scoring.py`
+- Strategy simulator by scenario (cost shock, channel shift, demand growth)
+- Recommendation confidence scoring and feedback loop
+- Scoring + recommendation integration into `app/streamlit_app.py`
 - Streamlit app development in `app/streamlit_app.py`
 
 ## Progress Log
@@ -346,3 +384,4 @@ sky/
 - **2026-04-01**: Extended clustering pipeline with K-Means sweep (k=2..8), hierarchical clustering, optional DBSCAN robustness check, clustering diagnostics plots, and final `clustered_restaurants.csv` export with selected labels.
 - **2026-04-01**: Added business-level cluster interpretation layer with archetype labeling, cluster-vs-overall KPI summaries, markdown profile narratives, KPI comparison visual, and enriched clustered output including `cluster_label_name` and `cluster_description`.
 - **2026-04-01**: Added Growth Potential Index (GPI) scoring module with normalized weighted framework, 0-100 score generation, risk-aware banding (`High Potential`, `Moderate Potential`, `Caution Zone`), methodology/summary reports, and merged GPI fields into `clustered_restaurants.csv`.
+- **2026-04-01**: Added strategy recommendation engine with rule-based action assignment (`Scale Aggressively`, `Expand Carefully`, `Rebalance Channels`, `Optimize`, `Stabilize Operations`), restaurant-level reason generation, recommendation summary reporting, and playbook documentation.
