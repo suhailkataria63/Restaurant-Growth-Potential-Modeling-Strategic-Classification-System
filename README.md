@@ -174,6 +174,46 @@ PCA components are interpreted using strongest positive and negative feature loa
 
 These themes are used as interpretation aids and should be validated against final clustering outputs before assigning archetype labels.
 
+## Clustering Analysis
+
+### Methods Tested
+1. **K-Means** on PCA feature space (`PC1`-`PC10`)
+   - Evaluated across `k = 2..8`
+   - Metrics tracked: inertia (elbow) and silhouette score
+
+2. **Agglomerative (Hierarchical) Clustering** on PCA feature space
+   - Ward linkage
+   - Cluster count matched to best K-Means `k` for direct comparison
+   - Dendrogram generated on sampled observations for readability
+
+3. **DBSCAN (Optional Robustness Check)** on full scaled feature matrix
+   - Used as a density-based sensitivity check against centroid/linkage methods
+   - Noise points retained as `-1` labels
+
+### Model Selection Reasoning
+- Primary candidate selection was based on silhouette score in PCA space.
+- K-Means achieved the highest silhouette in the sweep:
+  - **Best K-Means**: `k=3`, silhouette `0.2066`
+  - **Hierarchical (k=3)** silhouette: `0.1897`
+- DBSCAN produced 2 non-noise clusters with 86 noise points, which was useful for robustness but not selected as the primary segmentation method.
+
+### Chosen Clustering Configuration
+- **Selected method**: `K-Means`
+- **Chosen number of clusters**: `3`
+- **Final export**: `data/processed/clustered_restaurants.csv`
+
+The final clustered file includes:
+- original identifier fields (`restaurantid`, `restaurantname`, `cuisinetype`, `segment`, `subregion`)
+- selected strategic KPIs
+- PCA coordinates (`PC1`-`PC10`)
+- assigned labels from K-Means, hierarchical, DBSCAN, and the selected primary label (`selected_cluster`)
+
+### Clustering Artifacts Generated
+- `reports/figures/kmeans_elbow_plot.png`
+- `reports/figures/kmeans_silhouette_plot.png`
+- `reports/figures/hierarchical_dendrogram.png`
+- `data/processed/clustered_restaurants.csv`
+
 ## Project Structure
 ```
 sky/
@@ -187,6 +227,7 @@ sky/
 │       ├── encoder.pkl
 │       ├── feature_matrix.csv
 │       ├── pca_features.csv
+│       ├── clustered_restaurants.csv
 │       └── umap_features.csv
 ├── notebooks/
 │   └── eda.ipynb
@@ -205,17 +246,21 @@ sky/
 │   └── figures/
 │       ├── pca_scree_plot.png
 │       ├── pca_2d_scatter.png
+│       ├── kmeans_elbow_plot.png
+│       ├── kmeans_silhouette_plot.png
+│       ├── hierarchical_dendrogram.png
 │       └── umap_2d_embedding.png
 ├── requirements.txt
 └── README.md
 ```
 
 ## Next Steps
-- Clustering model selection and fitting (K-Means, Hierarchical, DBSCAN) in `src/clustering.py`
-- Cluster profiling and business archetype labeling
+- Cluster profiling and business archetype labeling by KPI patterns
+- Growth Potential Index (GPI) design and weighting strategy
 - Scoring model in `src/scoring.py`
 - Streamlit app development in `app/streamlit_app.py`
 
 ## Progress Log
 - **2026-04-01**: Initial setup, data preprocessing pipeline, feature engineering with KPIs and helper metrics completed. Repository pushed to GitHub.
 - **2026-04-01**: Added dimensionality reduction pipeline with PCA outputs, optional UMAP embedding, explained-variance reporting, factor interpretation guidance, and visualization artifacts.
+- **2026-04-01**: Extended clustering pipeline with K-Means sweep (k=2..8), hierarchical clustering, optional DBSCAN robustness check, clustering diagnostics plots, and final `clustered_restaurants.csv` export with selected labels.
