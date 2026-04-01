@@ -416,11 +416,10 @@ sky/
 - Streamlit integration using `dashboard_summary.json`, `top_restaurants.csv`, and filter summary tables
 - Interactive archetype + recommendation drill-down in `app/streamlit_app.py`
 
-## Progress Log
-- **2026-04-01**: Initial setup, data preprocessing pipeline, feature engineering with KPIs and helper metrics completed. Repository pushed to GitHub.
-- **2026-04-01**: Added dimensionality reduction pipeline with PCA outputs, optional UMAP embedding, explained-variance reporting, factor interpretation guidance, and visualization artifacts.
-- **2026-04-01**: Extended clustering pipeline with K-Means sweep (k=2..8), hierarchical clustering, optional DBSCAN robustness check, clustering diagnostics plots, and final `clustered_restaurants.csv` export with selected labels.
-- **2026-04-01**: Added business-level cluster interpretation layer with archetype labeling, cluster-vs-overall KPI summaries, markdown profile narratives, KPI comparison visual, and enriched clustered output including `cluster_label_name` and `cluster_description`.
-- **2026-04-01**: Added Growth Potential Index (GPI) scoring module with normalized weighted framework, 0-100 score generation, risk-aware banding (`High Potential`, `Moderate Potential`, `Caution Zone`), methodology/summary reports, and merged GPI fields into `clustered_restaurants.csv`.
-- **2026-04-01**: Added strategy recommendation engine with rule-based action assignment (`Scale Aggressively`, `Expand Carefully`, `Rebalance Channels`, `Optimize`, `Stabilize Operations`), restaurant-level reason generation, recommendation summary reporting, and playbook documentation.
-- **2026-04-01**: Added dashboard data preparation module with KPI card payloads, cluster/recommendation summaries, top-GPI restaurant table, and grouped filter drill-down tables for Streamlit-ready ingestion.
+## Progress Log (4-Week Retrospective)
+This timeline is summarized by weekly phases for readability; Git commit history remains the exact source of truth.
+
+- **Week 1 - Data Foundation**: Initial setup, data preprocessing pipeline, and strategic feature engineering (KPIs + helper metrics) completed with baseline processed artifacts.
+- **Week 2 - Latent Structure + Clustering**: Added dimensionality reduction (PCA + optional UMAP), explained-variance reporting, K-Means sweep (`k=2..8`), hierarchical clustering, optional DBSCAN robustness checks, and clustering diagnostics outputs.
+- **Week 3 - Business Intelligence Layer**: Added business-level cluster interpretation and archetype labeling, cluster-vs-overall KPI summaries, profile narratives, and enriched clustered dataset with `cluster_label_name` and `cluster_description`.
+- **Week 4 - Scoring, Recommendations, and Dashboard Prep**: Added Growth Potential Index (GPI), recommendation engine (`Scale Aggressively`, `Expand Carefully`, `Rebalance Channels`, `Optimize`, `Stabilize Operations`), summary/playbook reports, and dashboard-ready exports for app integration.
