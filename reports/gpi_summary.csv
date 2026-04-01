@@ -1,0 +1,4 @@
+gpi_band,restaurant_count,avg_gpi_score,min_gpi_score,max_gpi_score,avg_scale_score,avg_cost_discipline_score,avg_aggregator_dependence,avg_revenue_quality_score,avg_total_net_profit,share_pct
+High Potential,185,76.781,70.2,90.69,1689.759,0.398,0.644,1.626,14032.025,10.91
+Moderate Potential,785,56.117,45.08,69.82,1323.282,0.353,0.744,0.329,6697.273,46.29
+Caution Zone,726,33.912,7.49,44.96,999.279,0.237,0.788,-0.77,17.937,42.81

@@ -240,6 +240,54 @@ Using cluster-level KPI comparisons against overall dataset averages, each clust
   - `data/processed/clustered_restaurants.csv`
   - includes `cluster_label_name` and `cluster_description`
 
+## Growth Potential Index (GPI)
+
+### Composite Scoring Framework
+
+Implemented a weighted composite Growth Potential Index in `src/scoring.py` and merged the result back into `data/processed/clustered_restaurants.csv`.
+
+### GPI Formula
+
+1. Normalize each component to a 0-1 range before combining.
+2. Apply weighted aggregation:
+
+`GPI_raw = Σ(weight_i × normalized_component_i)`
+
+`GPI_score = GPI_raw × 100`
+
+### Weights Used
+- `scale_score`: 0.25
+- `cost_discipline_score`: 0.20
+- `aggregator_dependence` (penalty / inverted): 0.15
+- `expansion_headroom` (balanced contribution): 0.10
+- `revenue_quality_score`: 0.20
+- `delivery_revenue_mix`: 0.05
+- `instore_reliance`: 0.05
+
+### Rationale for Weights
+- **Scale + Revenue Quality (0.45 total)**: captures momentum and quality of growth.
+- **Cost + Aggregator Risk (0.35 total)**: enforces margin discipline and channel-risk awareness.
+- **Expansion + Channel Mix (0.20 total)**: adds strategic execution readiness and resilience context.
+
+### Score Bands
+- **High Potential**: `GPI >= 70`
+- **Moderate Potential**: `45 <= GPI < 70`
+- **Caution Zone**: `GPI < 45`
+
+### Band Meanings
+- **High Potential**: strong expansion candidates with healthy multi-factor fundamentals.
+- **Moderate Potential**: viable but requires targeted optimization before aggressive scaling.
+- **Caution Zone**: meaningful structural constraints; prioritize stabilization over expansion.
+
+### GPI Outputs
+- Methodology report: `reports/gpi_methodology.md`
+- Score distribution summary: `reports/gpi_summary.csv`
+- Enriched clustered dataset now includes:
+  - `gpi_score` (0-100)
+  - `gpi_band`
+  - `gpi_rank`
+  - normalized GPI component columns (`gpi_*_norm`)
+
 ## Project Structure
 ```
 sky/
@@ -272,6 +320,8 @@ sky/
 │   ├── pca_summary.md
 │   ├── cluster_summary.csv
 │   ├── cluster_profiles.md
+│   ├── gpi_methodology.md
+│   ├── gpi_summary.csv
 │   └── figures/
 │       ├── pca_scree_plot.png
 │       ├── pca_2d_scatter.png
@@ -295,3 +345,4 @@ sky/
 - **2026-04-01**: Added dimensionality reduction pipeline with PCA outputs, optional UMAP embedding, explained-variance reporting, factor interpretation guidance, and visualization artifacts.
 - **2026-04-01**: Extended clustering pipeline with K-Means sweep (k=2..8), hierarchical clustering, optional DBSCAN robustness check, clustering diagnostics plots, and final `clustered_restaurants.csv` export with selected labels.
 - **2026-04-01**: Added business-level cluster interpretation layer with archetype labeling, cluster-vs-overall KPI summaries, markdown profile narratives, KPI comparison visual, and enriched clustered output including `cluster_label_name` and `cluster_description`.
+- **2026-04-01**: Added Growth Potential Index (GPI) scoring module with normalized weighted framework, 0-100 score generation, risk-aware banding (`High Potential`, `Moderate Potential`, `Caution Zone`), methodology/summary reports, and merged GPI fields into `clustered_restaurants.csv`.
