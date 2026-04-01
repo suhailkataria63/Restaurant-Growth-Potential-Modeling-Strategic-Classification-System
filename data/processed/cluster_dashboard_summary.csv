@@ -1,0 +1,4 @@
+selected_cluster,cluster_label_name,restaurant_count,avg_gpi_score,avg_total_net_profit,avg_cost_discipline_score,dominant_recommendation,share_pct
+0,High-Growth / High-Risk,371,37.118,-3149.124,0.123,Stabilize Operations,21.88
+1,Scalable Profit Leaders,664,64.276,9787.647,0.376,Optimize,39.15
+2,Aggregator-Dependent Low Margin,661,39.978,3836.057,0.344,Rebalance Channels,38.97

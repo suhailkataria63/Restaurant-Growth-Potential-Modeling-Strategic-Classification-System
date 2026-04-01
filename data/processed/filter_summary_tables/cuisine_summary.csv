@@ -1,0 +1,9 @@
+cuisinetype,restaurant_count,avg_gpi_score,avg_total_revenue,avg_total_net_profit,avg_cost_discipline_score,avg_aggregator_dependence,dominant_recommendation,dominant_cluster_archetype,share_pct
+Burgers,375,54.963,50057.342,6207.183,0.31,0.7,Optimize,Scalable Profit Leaders,22.11
+Indian,329,43.384,41385.487,3438.304,0.314,0.8,Optimize,Aggregator-Dependent Low Margin,19.4
+Pizza,219,63.354,50434.661,7305.378,0.304,0.55,Scale Aggressively,Scalable Profit Leaders,12.91
+Chinese,218,49.338,45935.683,4642.744,0.31,0.75,Optimize,Scalable Profit Leaders,12.85
+Kebabs/Mediterranean,167,39.268,41437.041,2198.33,0.297,0.85,Stabilize Operations,Aggregator-Dependent Low Margin,9.85
+Chicken Dishes,148,43.184,48017.998,3772.889,0.288,0.85,Stabilize Operations,Aggregator-Dependent Low Margin,8.73
+Japanese,120,42.719,43405.366,3686.458,0.318,0.85,Rebalance Channels,Aggregator-Dependent Low Margin,7.08
+Thai,120,44.049,42145.96,3562.758,0.319,0.8,Optimize,Aggregator-Dependent Low Margin,7.08

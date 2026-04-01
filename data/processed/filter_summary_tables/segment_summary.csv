@@ -1,0 +1,5 @@
+segment,restaurant_count,avg_gpi_score,avg_total_revenue,avg_total_net_profit,avg_cost_discipline_score,avg_aggregator_dependence,dominant_recommendation,dominant_cluster_archetype,share_pct
+QSR,543,52.527,43961.505,6656.201,0.359,0.754,Optimize,Scalable Profit Leaders,32.02
+Cafe,504,54.574,46125.97,7481.548,0.361,0.752,Optimize,Scalable Profit Leaders,29.72
+Full-service,452,34.166,49977.582,-2880.039,0.125,0.75,Stabilize Operations,High-Growth / High-Risk,26.65
+Ghost Kitchen,197,57.892,40765.755,9051.099,0.453,0.752,Rebalance Channels,Aggregator-Dependent Low Margin,11.62

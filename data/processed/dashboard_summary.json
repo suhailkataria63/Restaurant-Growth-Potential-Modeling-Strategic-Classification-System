@@ -1,0 +1,98 @@
+{
+  "source_file": "data/processed/clustered_restaurants.csv",
+  "generated_at_utc": "2026-04-01T08:33:23.521107+00:00",
+  "record_count": 1696,
+  "overall_kpi_summary_cards": {
+    "total_restaurants": 1696,
+    "avg_gpi_score": 48.865,
+    "median_gpi_score": 48.33,
+    "high_potential_count": 185,
+    "high_potential_share_pct": 10.91,
+    "avg_total_revenue": 45836.855,
+    "avg_total_net_profit": 4638.152,
+    "avg_cost_discipline_score": 0.308,
+    "avg_aggregator_dependence": 0.752
+  },
+  "cluster_summary": [
+    {
+      "selected_cluster": 0,
+      "cluster_label_name": "High-Growth / High-Risk",
+      "restaurant_count": 371,
+      "avg_gpi_score": 37.118,
+      "avg_total_net_profit": -3149.124,
+      "avg_cost_discipline_score": 0.123,
+      "dominant_recommendation": "Stabilize Operations",
+      "share_pct": 21.88
+    },
+    {
+      "selected_cluster": 1,
+      "cluster_label_name": "Scalable Profit Leaders",
+      "restaurant_count": 664,
+      "avg_gpi_score": 64.276,
+      "avg_total_net_profit": 9787.647,
+      "avg_cost_discipline_score": 0.376,
+      "dominant_recommendation": "Optimize",
+      "share_pct": 39.15
+    },
+    {
+      "selected_cluster": 2,
+      "cluster_label_name": "Aggregator-Dependent Low Margin",
+      "restaurant_count": 661,
+      "avg_gpi_score": 39.978,
+      "avg_total_net_profit": 3836.057,
+      "avg_cost_discipline_score": 0.344,
+      "dominant_recommendation": "Rebalance Channels",
+      "share_pct": 38.97
+    }
+  ],
+  "recommendation_counts": [
+    {
+      "strategy_recommendation": "Optimize",
+      "restaurant_count": 575,
+      "share_pct": 33.9
+    },
+    {
+      "strategy_recommendation": "Stabilize Operations",
+      "restaurant_count": 524,
+      "share_pct": 30.9
+    },
+    {
+      "strategy_recommendation": "Rebalance Channels",
+      "restaurant_count": 353,
+      "share_pct": 20.81
+    },
+    {
+      "strategy_recommendation": "Scale Aggressively",
+      "restaurant_count": 175,
+      "share_pct": 10.32
+    },
+    {
+      "strategy_recommendation": "Expand Carefully",
+      "restaurant_count": 69,
+      "share_pct": 4.07
+    }
+  ],
+  "gpi_band_counts": [
+    {
+      "gpi_band": "Moderate Potential",
+      "restaurant_count": 785
+    },
+    {
+      "gpi_band": "Caution Zone",
+      "restaurant_count": 726
+    },
+    {
+      "gpi_band": "High Potential",
+      "restaurant_count": 185
+    }
+  ],
+  "output_files": {
+    "top_restaurants_csv": "data/processed/top_restaurants.csv",
+    "cluster_dashboard_summary_csv": "data/processed/cluster_dashboard_summary.csv",
+    "filter_summary_tables": {
+      "subregion": "data/processed/filter_summary_tables/subregion_summary.csv",
+      "cuisine": "data/processed/filter_summary_tables/cuisine_summary.csv",
+      "segment": "data/processed/filter_summary_tables/segment_summary.csv"
+    }
+  }
+}

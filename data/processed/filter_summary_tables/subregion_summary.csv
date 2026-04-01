@@ -1,0 +1,5 @@
+subregion,restaurant_count,avg_gpi_score,avg_total_revenue,avg_total_net_profit,avg_cost_discipline_score,avg_aggregator_dependence,dominant_recommendation,dominant_cluster_archetype,share_pct
+West Auckland,462,49.815,46754.634,4904.887,0.312,0.752,Optimize,Aggregator-Dependent Low Margin,27.24
+South Auckland,441,49.819,47074.49,4820.724,0.31,0.749,Optimize,Scalable Profit Leaders,26.0
+CBD,410,46.584,42349.843,4024.45,0.303,0.753,Stabilize Operations,Aggregator-Dependent Low Margin,24.17
+North Shore,383,49.064,47037.546,4763.145,0.307,0.755,Optimize,Aggregator-Dependent Low Margin,22.58

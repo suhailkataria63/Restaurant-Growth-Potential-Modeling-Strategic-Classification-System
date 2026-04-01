@@ -323,6 +323,36 @@ Each restaurant receives:
 - `reports/strategy_playbook.md`
 - `data/processed/clustered_restaurants.csv` (enriched with recommendation fields)
 
+## Dashboard Data Preparation
+
+### Dashboard Prep Module
+
+Implemented `src/dashboard_prep.py` to convert `data/processed/clustered_restaurants.csv` into dashboard-ready datasets and summary payloads for Streamlit consumption.
+
+### Generated Dashboard Artifacts
+
+- `data/processed/dashboard_summary.json`
+  - overall KPI summary cards payload
+  - cluster-wise count + average GPI payload
+  - recommendation-wise count payload
+  - GPI band counts and output file references
+- `data/processed/top_restaurants.csv`
+  - top restaurants ranked by GPI (`gpi_rank`, `gpi_score`, cluster, recommendation, and key financial context)
+- `data/processed/cluster_dashboard_summary.csv`
+  - cluster-wise counts, share, average GPI, average profit, and dominant recommendation
+- `data/processed/filter_summary_tables/`
+  - `subregion_summary.csv`
+  - `cuisine_summary.csv`
+  - `segment_summary.csv`
+
+### How These Files Feed Streamlit
+
+- **KPI cards**: read `dashboard_summary.json -> overall_kpi_summary_cards`
+- **Cluster charts/tables**: use `cluster_dashboard_summary.csv` or `dashboard_summary.json -> cluster_summary`
+- **Recommendation distribution chart**: use `dashboard_summary.json -> recommendation_counts`
+- **Top performers table**: use `top_restaurants.csv`
+- **Filter drill-downs**: use `filter_summary_tables/*.csv` based on selected view (subregion/cuisine/segment)
+
 ## Project Structure
 ```
 sky/
@@ -337,6 +367,13 @@ sky/
 │       ├── feature_matrix.csv
 │       ├── pca_features.csv
 │       ├── clustered_restaurants.csv
+│       ├── dashboard_summary.json
+│       ├── top_restaurants.csv
+│       ├── cluster_dashboard_summary.csv
+│       ├── filter_summary_tables/
+│       │   ├── subregion_summary.csv
+│       │   ├── cuisine_summary.csv
+│       │   └── segment_summary.csv
 │       └── umap_features.csv
 ├── notebooks/
 │   └── eda.ipynb
@@ -348,6 +385,7 @@ sky/
 │   ├── clustering.py
 │   ├── scoring.py
 │   ├── recommendation_engine.py
+│   ├── dashboard_prep.py
 │   └── utils.py
 ├── app/
 │   └── streamlit_app.py
@@ -375,8 +413,8 @@ sky/
 ## Next Steps
 - Strategy simulator by scenario (cost shock, channel shift, demand growth)
 - Recommendation confidence scoring and feedback loop
-- Scoring + recommendation integration into `app/streamlit_app.py`
-- Streamlit app development in `app/streamlit_app.py`
+- Streamlit integration using `dashboard_summary.json`, `top_restaurants.csv`, and filter summary tables
+- Interactive archetype + recommendation drill-down in `app/streamlit_app.py`
 
 ## Progress Log
 - **2026-04-01**: Initial setup, data preprocessing pipeline, feature engineering with KPIs and helper metrics completed. Repository pushed to GitHub.
@@ -385,3 +423,4 @@ sky/
 - **2026-04-01**: Added business-level cluster interpretation layer with archetype labeling, cluster-vs-overall KPI summaries, markdown profile narratives, KPI comparison visual, and enriched clustered output including `cluster_label_name` and `cluster_description`.
 - **2026-04-01**: Added Growth Potential Index (GPI) scoring module with normalized weighted framework, 0-100 score generation, risk-aware banding (`High Potential`, `Moderate Potential`, `Caution Zone`), methodology/summary reports, and merged GPI fields into `clustered_restaurants.csv`.
 - **2026-04-01**: Added strategy recommendation engine with rule-based action assignment (`Scale Aggressively`, `Expand Carefully`, `Rebalance Channels`, `Optimize`, `Stabilize Operations`), restaurant-level reason generation, recommendation summary reporting, and playbook documentation.
+- **2026-04-01**: Added dashboard data preparation module with KPI card payloads, cluster/recommendation summaries, top-GPI restaurant table, and grouped filter drill-down tables for Streamlit-ready ingestion.

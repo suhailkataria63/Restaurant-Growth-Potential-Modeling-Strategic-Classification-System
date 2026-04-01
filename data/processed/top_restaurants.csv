@@ -1,0 +1,26 @@
+gpi_rank,restaurantid,restaurantname,subregion,cuisinetype,segment,gpi_score,gpi_band,cluster_label_name,strategy_recommendation,total_revenue,total_net_profit,cost_discipline_score,aggregator_dependence
+1,25298,Classic Pizza Eatery,South Auckland,Pizza,QSR,90.69,High Potential,Scalable Profit Leaders,Scale Aggressively,89660.3,20217.629999999997,0.407850575582124,0.55
+2,26026,Top Pizza House,South Auckland,Pizza,QSR,89.56,High Potential,Scalable Profit Leaders,Scale Aggressively,68135.28,17709.59,0.42724576133769,0.55
+3,25934,Urban Pizza Grill,North Shore,Pizza,Cafe,88.72,High Potential,Scalable Profit Leaders,Scale Aggressively,85428.0,21101.73,0.416738970372825,0.55
+4,26524,Lucky Pizza Bistro,South Auckland,Pizza,Cafe,87.6,High Potential,Scalable Profit Leaders,Scale Aggressively,82467.79,21091.11,0.409213968911208,0.55
+5,26103,King Pizza Bistro,North Shore,Pizza,QSR,87.13,High Potential,Scalable Profit Leaders,Scale Aggressively,74933.1,16672.65,0.388757904809899,0.55
+6,26149,Classic Pizza Bistro,West Auckland,Pizza,Cafe,86.72,High Potential,Scalable Profit Leaders,Scale Aggressively,74017.34999999999,15186.009999999998,0.3578212753171099,0.55
+7,25745,Lucky Pizza House,North Shore,Pizza,Cafe,86.59,High Potential,Scalable Profit Leaders,Scale Aggressively,78583.06,19247.93,0.39503936175257,0.55
+8,25948,King Pizza Eatery,West Auckland,Pizza,Cafe,86.53,High Potential,Scalable Profit Leaders,Scale Aggressively,95963.98,27368.36,0.4181131728459151,0.55
+9,25757,Top Pizza Kitchen,South Auckland,Pizza,Cafe,86.33,High Potential,Scalable Profit Leaders,Scale Aggressively,71173.44,14419.48,0.379893343993463,0.55
+10,25185,Lucky Pizza Eatery,South Auckland,Pizza,Cafe,86.07,High Potential,Scalable Profit Leaders,Scale Aggressively,84785.4,17633.940000000002,0.3679989976203071,0.55
+11,25570,Top Pizza Eatery,South Auckland,Pizza,Ghost Kitchen,85.8,High Potential,Scalable Profit Leaders,Scale Aggressively,67914.18,19210.59,0.445265104086139,0.55
+12,26199,Urban Pizza House,CBD,Pizza,Ghost Kitchen,85.37,High Potential,Scalable Profit Leaders,Scale Aggressively,64728.0,17273.57,0.465290772053414,0.55
+13,26450,Top Pizza Bistro,North Shore,Pizza,QSR,85.35,High Potential,Scalable Profit Leaders,Scale Aggressively,71679.25,13992.9,0.381783942878246,0.55
+14,26574,Urban Pizza Tavern,West Auckland,Pizza,Cafe,85.29,High Potential,Scalable Profit Leaders,Scale Aggressively,93352.17,20827.71,0.3675151398405429,0.55
+15,26003,King Pizza Cafe,West Auckland,Pizza,QSR,85.28,High Potential,Scalable Profit Leaders,Scale Aggressively,81494.70000000001,18774.18,0.382648895303719,0.55
+16,25423,Classic Pizza Corner,South Auckland,Pizza,Cafe,85.16,High Potential,Scalable Profit Leaders,Scale Aggressively,68112.98999999999,15758.94,0.374312855191528,0.55
+17,26172,Top Pizza Cafe,South Auckland,Pizza,Cafe,85.09,High Potential,Scalable Profit Leaders,Scale Aggressively,65793.12,14490.239999999998,0.369570389138535,0.55
+18,25449,King Pizza Tavern,CBD,Pizza,Cafe,85.08,High Potential,Scalable Profit Leaders,Scale Aggressively,58934.52,16555.84,0.4368210045807059,0.55
+19,26673,King Pizza Kitchen,North Shore,Pizza,QSR,85.01,High Potential,Scalable Profit Leaders,Scale Aggressively,58901.85,12243.88,0.406237416760996,0.55
+20,25271,Lucky Pizza House,South Auckland,Pizza,Ghost Kitchen,84.22,High Potential,Scalable Profit Leaders,Scale Aggressively,59420.40000000001,18077.54,0.4793991485144939,0.55
+21,25207,King Pizza Cafe,South Auckland,Pizza,Cafe,84.17,High Potential,Scalable Profit Leaders,Scale Aggressively,63670.75,17638.600000000002,0.4222882124595349,0.55
+22,26378,King Pizza Cafe,West Auckland,Pizza,Ghost Kitchen,84.03,High Potential,Scalable Profit Leaders,Scale Aggressively,65357.52,16541.949999999997,0.437231397232972,0.55
+23,25551,Classic Pizza Tavern,South Auckland,Pizza,Cafe,83.87,High Potential,Scalable Profit Leaders,Scale Aggressively,65297.759999999995,17388.059999999998,0.393865846134722,0.55
+24,25021,Top Pizza Corner,West Auckland,Pizza,Ghost Kitchen,83.84,High Potential,Scalable Profit Leaders,Scale Aggressively,57762.66,15575.37,0.457096651836764,0.55
+25,26550,Lucky Burgers House,South Auckland,Burgers,Ghost Kitchen,83.52,High Potential,Scalable Profit Leaders,Scale Aggressively,61602.78999999999,17896.53,0.507511896803044,0.7
