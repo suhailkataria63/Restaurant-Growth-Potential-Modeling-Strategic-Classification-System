@@ -129,6 +129,51 @@ Detected highly skewed numerical columns (absolute skewness > 1) among revenue, 
 **Encoder Saved**: `data/processed/encoder.pkl` for encoding new categorical data.
 **Feature Matrix Saved**: `data/processed/feature_matrix.csv` ready for clustering algorithms.
 
+## Dimensionality Reduction
+
+### Latent Structure Discovery for Clustering
+
+Implemented a dedicated dimensionality reduction step in `src/dimensionality_reduction.py` and exposed it through `src/clustering.py`.
+
+### Methods Included
+1. **PCA (Principal Component Analysis)**:
+   - Linear dimensionality reduction for explainable latent factor discovery.
+   - Generates principal component scores for each restaurant.
+   - Produces explained variance summary and loadings-based interpretation notes.
+
+2. **UMAP (Optional)**:
+   - Nonlinear 2D embedding for visual structure discovery.
+   - Runs only when the `umap-learn` package is available in the environment.
+
+### Artifacts Generated
+- **PCA features**: `data/processed/pca_features.csv`
+- **UMAP features** (if available): `data/processed/umap_features.csv`
+- **PCA variance + loadings summary**: `reports/pca_summary.md`
+- **Scree plot**: `reports/figures/pca_scree_plot.png`
+- **PCA 2D scatter**: `reports/figures/pca_2d_scatter.png`
+- **UMAP 2D embedding** (if available): `reports/figures/umap_2d_embedding.png`
+
+### Factor Interpretation Notes (Business Hypothesis Layer)
+PCA components are interpreted using strongest positive and negative feature loadings. These component labels are directional hypotheses to support strategy interpretation.
+
+- **Cost pressure**:
+  - Usually linked to stronger loadings from `cogsrate`, `opexrate`, `commissionrate`, and delivery-cost fields.
+  - Higher score direction often reflects tighter margin pressure or cost-heavy operating structures.
+
+- **Channel leverage**:
+  - Usually linked to delivery/in-store mix features such as `instoreshare`, `ue_share`, `dd_share`, and `sd_share`.
+  - Distinguishes restaurants with stronger aggregator reliance versus direct-channel positioning.
+
+- **Growth momentum**:
+  - Usually linked to `growthfactor`, order volume, revenue, and net profit signals.
+  - Captures trajectory strength and compounding demand movement.
+
+- **Scalability**:
+  - Usually linked to `deliveryradiuskm`, channel-operational spread, and volume-related utilization patterns.
+  - Helps identify formats with stronger expansion headroom versus constrained operating models.
+
+These themes are used as interpretation aids and should be validated against final clustering outputs before assigning archetype labels.
+
 ## Project Structure
 ```
 sky/
@@ -140,28 +185,37 @@ sky/
 │       ├── restaurants_featured.csv
 │       ├── scaler.pkl
 │       ├── encoder.pkl
-│       └── feature_matrix.csv
+│       ├── feature_matrix.csv
+│       ├── pca_features.csv
+│       └── umap_features.csv
 ├── notebooks/
 │   └── eda.ipynb
 ├── src/
 │   ├── preprocessing.py
 │   ├── feature_engineering.py
+│   ├── dimensionality_reduction.py
 │   ├── clustering.py
 │   ├── scoring.py
 │   └── utils.py
 ├── app/
 │   └── streamlit_app.py
 ├── reports/
-│   └── analysis.md
+│   ├── analysis.md
+│   ├── pca_summary.md
+│   └── figures/
+│       ├── pca_scree_plot.png
+│       ├── pca_2d_scatter.png
+│       └── umap_2d_embedding.png
 ├── requirements.txt
 └── README.md
 ```
 
 ## Next Steps
-- Feature engineering in `src/feature_engineering.py`
-- Clustering analysis in `src/clustering.py`
+- Clustering model selection and fitting (K-Means, Hierarchical, DBSCAN) in `src/clustering.py`
+- Cluster profiling and business archetype labeling
 - Scoring model in `src/scoring.py`
 - Streamlit app development in `app/streamlit_app.py`
 
 ## Progress Log
 - **2026-04-01**: Initial setup, data preprocessing pipeline, feature engineering with KPIs and helper metrics completed. Repository pushed to GitHub.
+- **2026-04-01**: Added dimensionality reduction pipeline with PCA outputs, optional UMAP embedding, explained-variance reporting, factor interpretation guidance, and visualization artifacts.
