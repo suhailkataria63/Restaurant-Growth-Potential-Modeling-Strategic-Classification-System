@@ -61,7 +61,13 @@ Derived the following KPIs to capture key business dimensions for restaurant per
 5. **revenue_quality_score** = aov × total_net_profit (normalized)
    - **Business Meaning**: Combines order value with total profitability across all channels. Normalized using StandardScaler to create a standardized profitability metric.
 
-**Engineered Dataset**: `data/processed/restaurants_featured.csv` (1,696 rows × 35 columns, includes 5 new KPI features)
+**Helper Metrics for Interpretability**:
+- **total_revenue**: Sum of all revenue streams (in-store + delivery platforms)
+- **total_net_profit**: Combined net profit across all channels
+- **delivery_revenue_mix**: Proportion of revenue from delivery channels vs. total revenue
+- **instore_reliance**: Direct measure of in-store share (already available as instoreshare)
+
+**Engineered Dataset**: `data/processed/restaurants_featured.csv` (1,696 rows × 39 columns, includes 5 KPIs + 4 helper metrics)
 
 ## Clustering Preparation
 
@@ -156,3 +162,6 @@ sky/
 - Clustering analysis in `src/clustering.py`
 - Scoring model in `src/scoring.py`
 - Streamlit app development in `app/streamlit_app.py`
+
+## Progress Log
+- **2026-04-01**: Initial setup, data preprocessing pipeline, feature engineering with KPIs and helper metrics completed. Repository pushed to GitHub.

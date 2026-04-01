@@ -38,10 +38,21 @@ def engineer_features(input_path='data/processed/restaurants_cleaned.csv', outpu
     # Drop the raw column
     df = df.drop('revenue_quality_score_raw', axis=1)
     
+    # Helper metrics for interpretability
+    df['total_revenue'] = (df['instorerevenue'] + df['ubereatsrevenue'] + 
+                          df['doordashrevenue'] + df['selfdeliveryrevenue'])
+    
+    df['total_net_profit'] = total_net_profit
+    
+    df['delivery_revenue_mix'] = (df['ubereatsrevenue'] + df['doordashrevenue'] + df['selfdeliveryrevenue']) / df['total_revenue']
+    df['delivery_revenue_mix'] = df['delivery_revenue_mix'].fillna(0)  # Handle division by zero
+    
+    df['instore_reliance'] = df['instoreshare']
+    
     # Save engineered dataset
     df.to_csv(output_path, index=False)
     print(f"Engineered features saved to {output_path}")
-    print(f"New columns added: scale_score, cost_discipline_score, aggregator_dependence, expansion_headroom, revenue_quality_score")
+    print(f"New columns added: scale_score, cost_discipline_score, aggregator_dependence, expansion_headroom, revenue_quality_score, total_revenue, total_net_profit, delivery_revenue_mix, instore_reliance")
     print(f"Final shape: {df.shape}")
     
     return df
