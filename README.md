@@ -214,6 +214,67 @@ The final clustered file includes:
 - `reports/figures/hierarchical_dendrogram.png`
 - `data/processed/clustered_restaurants.csv`
 
+## Model Evaluation
+
+Implemented a dedicated evaluation module in `src/evaluation.py` to quantify clustering quality using the final selected cluster labels (`selected_cluster`) and the clustering-ready feature matrix.
+
+### Final Selected Solution Metrics
+
+For the current selected solution (`kmeans`, `k=3`):
+- **Silhouette Score**: `0.1930`
+- **Calinski-Harabasz Score**: `390.2882`
+- **Davies-Bouldin Score**: `1.7151`
+
+### K-Means k-Range Evaluation (`k=2..8`)
+
+K-Means was re-evaluated across the tested range and exported to:
+- `reports/model_evaluation/kmeans_k_comparison.csv`
+
+Key pattern from the sweep:
+- Best **Silhouette** at `k=3` (supports current selection).
+- Best **Davies-Bouldin** at `k=4` (slightly lower overlap at 4 clusters).
+- Best **Calinski-Harabasz** at `k=2` (strongest global separation at lower k).
+
+This trade-off indicates `k=3` remains a balanced operating choice between interpretability and separation quality.
+
+### Metric Interpretation Guide
+- **Silhouette Score**: higher is better; reflects cohesion vs. separation.
+- **Calinski-Harabasz Score**: higher is better; ratio of between-cluster to within-cluster dispersion.
+- **Davies-Bouldin Score**: lower is better; penalizes cluster overlap/similarity.
+
+### Evaluation Outputs
+- Metrics summary: `reports/model_evaluation/clustering_metrics.md`
+- K comparison table: `reports/model_evaluation/kmeans_k_comparison.csv`
+- Silhouette trend: `reports/figures/eval_silhouette_by_k.png`
+- Davies-Bouldin trend: `reports/figures/eval_davies_bouldin_by_k.png`
+- Calinski-Harabasz trend: `reports/figures/eval_calinski_harabasz_by_k.png`
+
+### Clustering Stability Evaluation
+
+To evaluate robustness beyond point estimates, `src/evaluation.py` includes two stability checks for the selected K-Means solution:
+
+1. **Seed Re-run Stability**  
+   - Re-runs K-Means multiple times with different random seeds.
+   - Compares assignments to a baseline run using:
+     - **Adjusted Rand Index (ARI)**
+     - **Normalized Mutual Information (NMI)**
+
+2. **80% Subsample Stability**  
+   - Randomly samples 80% of restaurants multiple times.
+   - Re-clusters each sample and compares sample assignments against baseline sample assignments using ARI/NMI.
+   - Also tracks centroid consistency via mean matched centroid shift.
+
+Current stability summary indicates strong robustness:
+- Seed reruns: ARI `1.0000`, NMI `1.0000`
+- 80% subsamples: ARI `0.9761`, NMI `0.9651`
+- Overall verdict: **Highly robust cluster structure**
+
+### Stability Outputs
+- Stability report: `reports/model_evaluation/cluster_stability.md`
+- Stability run summary: `reports/model_evaluation/cluster_stability_summary.csv`
+- ARI stability plot: `reports/figures/cluster_stability_ari.png`
+- NMI stability plot: `reports/figures/cluster_stability_nmi.png`
+
 ## Cluster Interpretation and Labeling
 
 ### Business Archetypes Identified
@@ -386,6 +447,7 @@ sky/
 │   ├── scoring.py
 │   ├── recommendation_engine.py
 │   ├── dashboard_prep.py
+│   ├── evaluation.py
 │   └── utils.py
 ├── app/
 │   └── streamlit_app.py
@@ -398,6 +460,11 @@ sky/
 │   ├── gpi_summary.csv
 │   ├── recommendation_summary.csv
 │   ├── strategy_playbook.md
+│   ├── model_evaluation/
+│   │   ├── clustering_metrics.md
+│   │   ├── kmeans_k_comparison.csv
+│   │   ├── cluster_stability.md
+│   │   └── cluster_stability_summary.csv
 │   └── figures/
 │       ├── pca_scree_plot.png
 │       ├── pca_2d_scatter.png
@@ -405,6 +472,11 @@ sky/
 │       ├── kmeans_silhouette_plot.png
 │       ├── hierarchical_dendrogram.png
 │       ├── cluster_kpi_comparison.png
+│       ├── eval_silhouette_by_k.png
+│       ├── eval_davies_bouldin_by_k.png
+│       ├── eval_calinski_harabasz_by_k.png
+│       ├── cluster_stability_ari.png
+│       ├── cluster_stability_nmi.png
 │       └── umap_2d_embedding.png
 ├── requirements.txt
 └── README.md
