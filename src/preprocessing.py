@@ -1,8 +1,11 @@
 import pandas as pd
 import numpy as np
+from pathlib import Path
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 import joblib
 from scipy.stats import skew
+
+RAW_INPUT_PATH = 'data/raw/SkyCity Auckland Restaurants & Bars.csv'
 
 def validate_datatypes(df):
     """
@@ -29,10 +32,16 @@ def validate_datatypes(df):
         if col in df.columns:
             df[col] = df[col].astype(str)
 
-    # Check for conversion issues
-    invalid_numeric = df[numeric_cols].isnull().sum().sum()
-    if invalid_numeric > 0:
-        print(f"Warning: {invalid_numeric} invalid numeric values found and converted to NaN")
+    # Check for conversion issues only on available columns.
+    available_numeric_cols = [col for col in numeric_cols if col in df.columns]
+    missing_numeric_cols = sorted(set(numeric_cols) - set(available_numeric_cols))
+    if missing_numeric_cols:
+        print(f"Warning: Missing expected numeric columns: {missing_numeric_cols}")
+
+    if available_numeric_cols:
+        invalid_numeric = df[available_numeric_cols].isnull().sum().sum()
+        if invalid_numeric > 0:
+            print(f"Warning: {invalid_numeric} invalid numeric values found and converted to NaN")
 
     return df
 
@@ -76,11 +85,12 @@ def preprocess_data(input_path, output_path='data/processed/restaurants_cleaned.
     df = pd.read_csv(input_path)
 
     # Apply preprocessing steps
-    df = validate_datatypes(df)
     df = standardize_column_names(df)
+    df = validate_datatypes(df)
     df = verify_percentage_columns(df)
 
     # Save processed data
+    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(output_path, index=False)
     print(f"Preprocessed data saved to {output_path}")
     print(f"Final shape: {df.shape}")
@@ -103,7 +113,7 @@ def prepare_for_clustering(df):
     print(f"Categorical columns: {categorical_cols}")
 
     # Select numerical data
-    df_num = df[numerical_cols]
+    df_num = df[numerical_cols].copy()
 
     # Detect and transform highly skewed columns (revenue, order count, delivery cost)
     skewed_cols = []
@@ -158,7 +168,8 @@ def prepare_for_clustering(df):
     return df_final
 
 if __name__ == "__main__":
-    # Run preprocessing on the cleaned data
-    df = preprocess_data('data/processed/restaurants_cleaned.csv')
+    # Run preprocessing from raw source if available; fallback to current cleaned file.
+    default_input = RAW_INPUT_PATH if Path(RAW_INPUT_PATH).exists() else 'data/processed/restaurants_cleaned.csv'
+    df = preprocess_data(default_input)
     # Prepare for clustering
     df_final = prepare_for_clustering(df)

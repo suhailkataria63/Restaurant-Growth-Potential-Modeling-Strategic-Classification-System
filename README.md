@@ -470,9 +470,48 @@ vercel
 vercel --prod
 ```
 
+## Reproducibility
+
+### One-Command Pipeline Rebuild
+
+Run the full pipeline from raw data to final evaluation artifacts:
+
+```bash
+make reproduce
+```
+
+This executes:
+- preprocessing (raw CSV -> cleaned + feature matrix)
+- feature engineering
+- dimensionality reduction (PCA + optional UMAP)
+- clustering and interpretation
+- GPI scoring
+- recommendation generation
+- dashboard prep
+- model evaluation + stability checks
+
+### Direct Script Option
+
+```bash
+bash scripts/reproduce.sh
+```
+
+### Reproducibility Notes
+
+- `scripts/reproduce.sh` auto-uses `.venv/bin/python` if available.
+- It sets reproducibility-friendly runtime env vars for matplotlib/numba caches.
+- `dashboard_summary.json` uses `DASHBOARD_GENERATED_AT_UTC` if provided, otherwise current UTC time.
+- For deterministic rebuild checks:
+
+```bash
+export DASHBOARD_GENERATED_AT_UTC="1970-01-01T00:00:00+00:00"
+make reproduce
+```
+
 ## Project Structure
 ```
 sky/
+├── Makefile
 ├── data/
 │   ├── raw/
 │   │   └── SkyCity Auckland Restaurants & Bars.csv
@@ -512,6 +551,8 @@ sky/
 │       ├── components/
 │       ├── lib/
 │       └── package.json
+├── scripts/
+│   └── reproduce.sh
 ├── reports/
 │   ├── analysis.md
 │   ├── pca_summary.md
@@ -556,3 +597,4 @@ This timeline is summarized by weekly phases for readability; Git commit history
 - **Week 2 - Latent Structure + Clustering**: Added dimensionality reduction (PCA + optional UMAP), explained-variance reporting, K-Means sweep (`k=2..8`), hierarchical clustering, optional DBSCAN robustness checks, and clustering diagnostics outputs.
 - **Week 3 - Business Intelligence Layer**: Added business-level cluster interpretation and archetype labeling, cluster-vs-overall KPI summaries, profile narratives, and enriched clustered dataset with `cluster_label_name` and `cluster_description`.
 - **Week 4 - Scoring, Recommendations, and Dashboard Prep**: Added Growth Potential Index (GPI), recommendation engine (`Scale Aggressively`, `Expand Carefully`, `Rebalance Channels`, `Optimize`, `Stabilize Operations`), summary/playbook reports, dashboard-ready exports, and a polished Streamlit dashboard with theme-aware readability, hover tooltips, and improved chart usability.
+- **Week 4 - Reproducibility Hardening**: Fixed raw-data preprocessing entry flow, added deterministic evaluation CSV handling, removed tracked bytecode noise, and added `make reproduce` / `scripts/reproduce.sh` for one-command end-to-end rebuilds.

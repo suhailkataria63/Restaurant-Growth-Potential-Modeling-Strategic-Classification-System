@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict
@@ -175,7 +176,7 @@ def prepare_dashboard_datasets(
 
     dashboard_payload = {
         "source_file": clustered_input_path,
-        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "generated_at_utc": os.getenv("DASHBOARD_GENERATED_AT_UTC", datetime.now(timezone.utc).isoformat()),
         "record_count": int(len(df)),
         "overall_kpi_summary_cards": overall_cards,
         "cluster_summary": cluster_summary.to_dict(orient="records"),

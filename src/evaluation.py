@@ -35,6 +35,14 @@ def _ensure_parent_dirs(paths: Iterable[Path]) -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
 
 
+def _rounded_numeric_frame(df: pd.DataFrame, decimals: int = 12) -> pd.DataFrame:
+    rounded = df.copy()
+    numeric_cols = rounded.select_dtypes(include=[np.number]).columns
+    if len(numeric_cols) > 0:
+        rounded[numeric_cols] = rounded[numeric_cols].round(decimals)
+    return rounded
+
+
 def _load_features_and_labels(
     clustered_data_path: str,
     feature_matrix_path: str,
@@ -397,7 +405,7 @@ def evaluate_clustering_model(
     ch_plot = Path(calinski_plot_path)
     _ensure_parent_dirs([metrics_md, k_csv, silhouette_plot, db_plot, ch_plot])
 
-    k_scores_df.to_csv(k_csv, index=False)
+    _rounded_numeric_frame(k_scores_df).to_csv(k_csv, index=False)
     _write_metrics_markdown(selected_metrics, selected_method, n_clusters, metrics_md)
 
     _plot_metric_by_k(
@@ -490,7 +498,7 @@ def evaluate_clustering_stability(
     nmi_plot = Path(stability_nmi_plot_path)
     _ensure_parent_dirs([stability_md, stability_csv, ari_plot, nmi_plot])
 
-    stability_df.to_csv(stability_csv, index=False)
+    _rounded_numeric_frame(stability_df).to_csv(stability_csv, index=False)
     summary_stats = _write_stability_markdown(
         stability_df=stability_df,
         output_path=stability_md,
