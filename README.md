@@ -472,6 +472,27 @@ vercel --prod
 
 ## Reproducibility
 
+### Reproduce From Fresh Clone
+
+```bash
+# 1) Clone into a new folder
+git clone https://github.com/suhailkataria63/Restaurant-Growth-Potential-Modeling-Strategic-Classification-System.git restaurant-growth-repro
+cd restaurant-growth-repro
+
+# 2) Create and activate virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+
+# 3) Install dependencies
+pip install -r requirements.txt
+
+# 4) Rebuild the full pipeline (raw data -> all processed/report artifacts)
+make reproduce
+
+# 5) Run the Streamlit web app
+streamlit run app/streamlit_app.py
+```
+
 ### One-Command Pipeline Rebuild
 
 Run the full pipeline from raw data to final evaluation artifacts:
