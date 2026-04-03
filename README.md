@@ -388,7 +388,7 @@ Each restaurant receives:
 
 ### Dashboard Prep Module
 
-Implemented `src/dashboard_prep.py` to convert `data/processed/clustered_restaurants.csv` into dashboard-ready datasets and summary payloads for Streamlit consumption.
+Implemented `src/dashboard_prep.py` to convert `data/processed/clustered_restaurants.csv` into dashboard-ready datasets and summary payloads for frontend consumption.
 
 ### Generated Dashboard Artifacts
 
@@ -406,13 +406,69 @@ Implemented `src/dashboard_prep.py` to convert `data/processed/clustered_restaur
   - `cuisine_summary.csv`
   - `segment_summary.csv`
 
-### How These Files Feed Streamlit
+### How These Files Feed the Streamlit Dashboard
 
 - **KPI cards**: read `dashboard_summary.json -> overall_kpi_summary_cards`
 - **Cluster charts/tables**: use `cluster_dashboard_summary.csv` or `dashboard_summary.json -> cluster_summary`
 - **Recommendation distribution chart**: use `dashboard_summary.json -> recommendation_counts`
 - **Top performers table**: use `top_restaurants.csv`
 - **Filter drill-downs**: use `filter_summary_tables/*.csv` based on selected view (subregion/cuisine/segment)
+
+## Frontend and Deployment
+
+### Primary UI
+
+- **Primary dashboard UI**: `app/streamlit_app.py` (Streamlit)
+- **Reference UI**: `app/restaurant-growth-dashboard` (Next.js) retained as a design reference.
+
+### Run Streamlit Dashboard Locally
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+streamlit run app/streamlit_app.py
+```
+
+Open: `http://localhost:8501`
+
+### Deploy Streamlit Dashboard (Recommended: Streamlit Community Cloud)
+
+1. Push repository to GitHub.
+2. Go to Streamlit Community Cloud and click **New app**.
+3. Select repository and branch.
+4. Set **Main file path** to `app/streamlit_app.py`.
+5. Deploy.
+
+### Optional: Run Next.js Reference Dashboard Locally
+
+```bash
+cd app/restaurant-growth-dashboard
+npm install
+npm run dev
+```
+
+Open: `http://localhost:3000`
+
+### Optional: Deploy Next.js Reference UI (Vercel)
+
+#### Option A: Vercel Web UI
+1. Push repository to GitHub.
+2. Go to Vercel and click **New Project**.
+3. Import this repository.
+4. Set **Root Directory** to `app/restaurant-growth-dashboard`.
+5. Keep build settings as default for Next.js:
+   - Build command: `next build`
+   - Output: `.next`
+6. Deploy.
+
+#### Option B: Vercel CLI
+```bash
+npm i -g vercel
+cd app/restaurant-growth-dashboard
+vercel
+vercel --prod
+```
 
 ## Project Structure
 ```
@@ -450,7 +506,12 @@ sky/
 │   ├── evaluation.py
 │   └── utils.py
 ├── app/
-│   └── streamlit_app.py
+│   ├── streamlit_app.py
+│   └── restaurant-growth-dashboard/
+│       ├── app/
+│       ├── components/
+│       ├── lib/
+│       └── package.json
 ├── reports/
 │   ├── analysis.md
 │   ├── pca_summary.md
@@ -485,8 +546,8 @@ sky/
 ## Next Steps
 - Strategy simulator by scenario (cost shock, channel shift, demand growth)
 - Recommendation confidence scoring and feedback loop
-- Streamlit integration using `dashboard_summary.json`, `top_restaurants.csv`, and filter summary tables
-- Interactive archetype + recommendation drill-down in `app/streamlit_app.py`
+- Production deployment hardening for Streamlit (monitoring, auth, and observability)
+- CI checks for data artifact freshness and dashboard smoke tests
 
 ## Progress Log (4-Week Retrospective)
 This timeline is summarized by weekly phases for readability; Git commit history remains the exact source of truth.
@@ -494,4 +555,4 @@ This timeline is summarized by weekly phases for readability; Git commit history
 - **Week 1 - Data Foundation**: Initial setup, data preprocessing pipeline, and strategic feature engineering (KPIs + helper metrics) completed with baseline processed artifacts.
 - **Week 2 - Latent Structure + Clustering**: Added dimensionality reduction (PCA + optional UMAP), explained-variance reporting, K-Means sweep (`k=2..8`), hierarchical clustering, optional DBSCAN robustness checks, and clustering diagnostics outputs.
 - **Week 3 - Business Intelligence Layer**: Added business-level cluster interpretation and archetype labeling, cluster-vs-overall KPI summaries, profile narratives, and enriched clustered dataset with `cluster_label_name` and `cluster_description`.
-- **Week 4 - Scoring, Recommendations, and Dashboard Prep**: Added Growth Potential Index (GPI), recommendation engine (`Scale Aggressively`, `Expand Carefully`, `Rebalance Channels`, `Optimize`, `Stabilize Operations`), summary/playbook reports, and dashboard-ready exports for app integration.
+- **Week 4 - Scoring, Recommendations, and Dashboard Prep**: Added Growth Potential Index (GPI), recommendation engine (`Scale Aggressively`, `Expand Carefully`, `Rebalance Channels`, `Optimize`, `Stabilize Operations`), summary/playbook reports, dashboard-ready exports, and a polished Streamlit dashboard with theme-aware readability, hover tooltips, and improved chart usability.
